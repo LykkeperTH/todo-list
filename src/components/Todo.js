@@ -1,24 +1,42 @@
 import { Form, Button } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
-const Todo = ({ text, setText, toDos, setToDos }) => {
-  const onTextChange = (e) => {
-    setText(e.target.value);
+const Todo = ({ input, setInput, todos, setTodos }) => {
+  const onInputChange = (event) => {
+    setInput(event.target.value);
+    // console.log(event.target.value);
   };
-  const handleSummit = () => {
-    setToDos([...toDos, { id: uuidv4(), name: text, complete: false }]);
-    setText("");
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setTodos([
+      ...todos,
+      {
+        id: uuidv4(),
+        title: input,
+        complete: false,
+      },
+    ]);
+    setInput("");
   };
   return (
-    <Form.Group onSubmit={handleSummit}>
-      <Form.Control
-        size="lg"
-        type="text"
-        placeholder="Large text"
-        value={text}
-        onChange={onTextChange}
-      />
-      <Button variant="primary">Primary</Button>
-    </Form.Group>
+    <Form onSubmit={onSubmit}>
+      <Form.Group
+        role="form"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <Form.Control
+          size="md"
+          type="text"
+          placeholder="Large text"
+          value={input}
+          required
+          style={{ width: "50%" }}
+          onChange={onInputChange}
+        />
+        <Button variant="primary" type="submit" style={{ marginLeft: "10px" }}>
+          Submit
+        </Button>
+      </Form.Group>
+    </Form>
   );
 };
 export default Todo;

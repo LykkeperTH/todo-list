@@ -5,14 +5,21 @@ import Todo from "./components/Todo";
 import TodoList from "./components/TodoList";
 
 const App = () => {
-  const [toDos, setToDos] = useState([]);
-  const [text, setText] = useState("");
+  const [input, setInput] = useState("");
+  const [todos, setTodos] = useState([]);
 
   return (
     <Container>
-      <Header />
-      <Todo input={text} setInput={setText} toDos={toDos} setToDos={setToDos} />
-      <TodoList />
+      <Jumbotron style={{ marginTop: "30px" }}>
+        <Header />
+        <Todo
+          input={input}
+          setInput={setInput}
+          todos={todos}
+          setTodos={setTodos}
+        />
+        <TodoList todos={todos} setTodos={setTodos} />
+      </Jumbotron>
     </Container>
   );
 };
